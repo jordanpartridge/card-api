@@ -3,7 +3,5 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return ['Laravel' => app()->version()];
+    return ['card-api' => 'v1'];
 });
-
-require __DIR__ . '/auth.php';

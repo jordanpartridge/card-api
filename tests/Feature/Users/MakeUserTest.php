@@ -43,7 +43,8 @@ it('validates name input', function () {
     artisan('make:user')
         ->expectsQuestion('What is the name of the user?', '')->assertFailed();
 
-    expect(User::count())->toBe(0);
+    expect(User::query()
+        ->count())->toBe(0);
 });
 
 it('validates email input', function () {
