@@ -19,4 +19,9 @@ class Suit extends Model
         'Symbol',
         'color',
     ];
+
+    public function getRouteKeyName(): string
+    {
+        return 'name';
+    }
 }
