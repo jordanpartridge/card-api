@@ -29,8 +29,7 @@ Artisan::command('make:user', function () {
         placeholder: 'SuperSecret', validate: ['required', Password::defaults()]
     );
 
-    $apiToken = confirm('Would you like to generate an API token for the user?',
-        default: true);
+    $apiToken = confirm('Would you like to generate an API token for the user?');
 
     $user = User::create([
         'name' => $name,
@@ -39,7 +38,8 @@ Artisan::command('make:user', function () {
     ]);
 
     if ($apiToken) {
-        $token = $user->createToken('api_token')->plainTextToken;
+        $tokenName = text('enter a name for the API token');
+        $token = $user->createToken($tokenName)->plainTextToken;
         $this->info($token);
     }
 
