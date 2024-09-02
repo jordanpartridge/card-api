@@ -1,0 +1,19 @@
+{
+    "devDependencies": {
+        "husky": "^8.0.0",
+        "lint-staged": "^15.2.10"
+    },
+    "scripts": {
+        "prepare": "husky install"
+    },
+    "lint-staged": {
+        "**/*.php": [
+            "./vendor/bin/duster lint"
+        ]
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    }
+}
