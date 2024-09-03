@@ -16,25 +16,21 @@ class SuitSeeder extends Seeder
             [
                 'name' => 'Hearts',
                 'symbol' => '♥',
-                'unicode' => '2665',
                 'color' => '#FF0000',
             ],
             [
                 'name' => 'Diamonds',
                 'symbol' => '♦',
-                'unicode' => '2666',
                 'color' => '#FF0000',
             ],
             [
                 'name' => 'Clubs',
                 'symbol' => '♣',
-                'unicode' => '2663',
                 'color' => '#000000',
             ],
             [
                 'name' => 'Spades',
                 'symbol' => '♠',
-                'unicode' => '2660',
                 'color' => '#000000',
             ],
         ];
