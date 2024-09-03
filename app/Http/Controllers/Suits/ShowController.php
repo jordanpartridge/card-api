@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Suits;
 
+use App\Http\Resources\SuitResource;
 use App\Models\Suit;
-use Illuminate\Http\JsonResponse;
 
 class ShowController
 {
-    public function __invoke(Suit $suit): JsonResponse
+    public function __invoke(Suit $suit): SuitResource
     {
-        return response()->json([
-            'data' => $suit,
-        ]);
+        return new SuitResource($suit);
     }
 }
