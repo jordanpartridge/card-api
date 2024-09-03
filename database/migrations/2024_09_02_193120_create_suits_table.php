@@ -13,7 +13,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->char('symbol', 1)->unique();
             $table->string('color');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
             $table->softDeletes();
         });
     }
