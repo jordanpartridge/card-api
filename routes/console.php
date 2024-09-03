@@ -1,48 +1,51 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
-use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\password;
+use function Laravel\Prompts\info;
+use function Laravel\Prompts\spin;
+use function Laravel\Prompts\table;
 use function Laravel\Prompts\text;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
-
 Artisan::command('make:user', function () {
+    info('🚀 Welcome to the User Creation Wizard! 🚀');
+
     $name = text(
-        label: 'What is the name of the user?',
-        placeholder: 'Jordan Partridge', validate: ['required', 'max:255', 'min:2']
+        label: '👤 What is the name of the user?',
+        placeholder: 'Jordan Partridge',
+        validate: fn ($value) => match (true) {
+            strlen($value) < 2 => 'The name must be at least 2 characters long.',
+            strlen($value) > 255 => 'The name must not exceed 255 characters.',
+            default => null,
+        }
     );
 
     $email = text(
-        label: 'What is the email of the user?',
-        placeholder: 'jordan@partridge.rocks', validate: ['required', 'email', 'unique:users,email']
+        label: '📧 What is the email of the user?',
+        placeholder: 'jordan@partridge.rocks',
+        validate: fn ($value) => match (true) {
+            ! filter_var($value, FILTER_VALIDATE_EMAIL) => 'Please enter a valid email address.',
+            User::where('email', $value)->exists() => 'This email is already in use.',
+            default => null,
+        }
     );
 
-    $password = password(
-        label: 'What is the password of the user?',
-        placeholder: 'SuperSecret', validate: ['required', Password::defaults()]
-    );
-
-    $apiToken = confirm('Would you like to generate an API token for the user?');
-
-    $user = User::create([
+    $user = spin(fn () => User::create([
         'name' => $name,
         'email' => $email,
-        'password' => $password,
-    ]);
+        'password' => Str::uuid(),
+    ]), 'Creating user...');
 
-    if ($apiToken) {
-        $tokenName = text('enter a name for the API token');
-        $token = $user->createToken($tokenName)->plainTextToken;
-        $this->info($token);
-    }
+    $token = $user->createToken('token-generated-by-make-user')->plainTextToken;
 
-    $this->info('User created successfully');
+    info('✅ User created successfully!');
 
+    table(
+        ['Name', 'Email', 'API Token'],
+        [[$user->name, $user->email, $token]]
+    );
+
+    info('🔐 Make sure to save the API token, as it won\'t be shown again!');
 });
