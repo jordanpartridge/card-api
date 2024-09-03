@@ -12,8 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->char('symbol', 1)->unique();
-            $table->string('unicode', 4);
-            $table->string('color', 7);
+            $table->string('color');
             $table->timestamps();
             $table->softDeletes();
         });
