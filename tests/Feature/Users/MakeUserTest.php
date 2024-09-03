@@ -8,7 +8,6 @@ test('make:user command creates a new user', function () {
     artisan('make:user')
         ->expectsQuestion('What is the name of the user?', 'John Doe')
         ->expectsQuestion('What is the email of the user?', 'john@example.com')
-        ->expectsQuestion('enter a name for the API token', 'token123')
         ->assertSuccessful()
         ->expectsOutput('User created successfully');
 

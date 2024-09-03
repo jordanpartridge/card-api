@@ -23,8 +23,7 @@ Artisan::command('make:user', function () {
         'password' => Str::uuid(),
     ]);
 
-    $tokenName = text('enter a name for the API token');
-    $token = $user->createToken($tokenName)->plainTextToken;
+    $token = $user->createToken('token-generated-by-make-user')->plainTextToken;
     $this->info($token);
 
     $this->info('User created successfully');
