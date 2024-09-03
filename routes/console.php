@@ -2,10 +2,9 @@
 
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str;
 
 use function Laravel\Prompts\confirm;
-use function Laravel\Prompts\password;
 use function Laravel\Prompts\text;
 
 Artisan::command('make:user', function () {
@@ -19,17 +18,12 @@ Artisan::command('make:user', function () {
         placeholder: 'jordan@partridge.rocks', validate: ['required', 'email', 'unique:users,email']
     );
 
-    $password = password(
-        label: 'What is the password of the user?',
-        placeholder: 'SuperSecret', validate: ['required', Password::defaults()]
-    );
-
     $apiToken = confirm('Would you like to generate an API token for the user?');
 
     $user = User::create([
         'name' => $name,
         'email' => $email,
-        'password' => $password,
+        'password' => Str::uuid(),
     ]);
 
     if ($apiToken) {
