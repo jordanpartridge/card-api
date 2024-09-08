@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
+    "name": "jordanpartridge/card-api",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
+    "description": "A simple restful api to manage cards and decks",
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
