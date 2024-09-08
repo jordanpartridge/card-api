@@ -14,6 +14,7 @@ return new class extends Migration
             $table->foreignId('suit_id')->nullable()->index()->constrained('suits');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+            $table->softDeletes();
         });
     }
 

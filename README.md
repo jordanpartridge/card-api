@@ -1,5 +1,188 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# API Project
 
+<p align="center">
+<a href="https://github.com/yourusername/your-api-project/actions"><img src="https://github.com/dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+<a href="https://packagist.org/packages/yourusername/your-api-project"><img src="https://img.shields.io/packagist/v/yourusername/your-api-project" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/yourusername/your-api-project"><img src="https://img.shields.io/packagist/l/yourusername/your-api-project" alt="License"></a>
+</p>
+
+## About Card API   
+
+The card API is built with Laravel 11 and Sanctum. It provides endpoints for managing suits, cards, and decks.
+At the time of writing of this readme this a completely headless api, a make:user command is provided to create a user
+with a token.
+
+
+## Make User
+
+Since there is no user interface, a make:user command is provided to create a user with a token.
+
+
+## API Documentation
+
+### Current Endpoints
+
+#### Suits
+
+- `GET /api/suits`: Retrieve all suits
+- `GET /api/suits/{id}`: Retrieve a specific suit
+- `POST /api/suits`: Create a new suit
+- `PUT /api/suits/{id}`: Update an existing suit
+- `DELETE /api/suits/{id}`: Delete a suit
+
+#### Cards
+
+- `GET /api/cards`: Retrieve all cards
+- `GET /api/cards/{id}`: Retrieve a specific card
+- `POST /api/cards`: Create a new card
+- `PUT /api/cards/{id}`: Update an existing card
+- `DELETE /api/cards/{id}`: Delete a card
+
+#### Decks
+
+- `GET /api/decks`: Retrieve all decks
+- `GET /api/decks/{id}`: Retrieve a specific deck
+- `POST /api/decks`: Create a new deck
+- `PUT /api/decks/{id}`: Update an existing deck
+- `DELETE /api/decks/{id}`: Delete a deck
+
+### Authentication
+
+This API uses token-based authentication. Include your API token in the Authorization header of your requests:
+
+
+Authorization: Bearer YOUR_API_TOKEN
+
+
+### Request Format
+
+All requests should be sent with the `Content-Type: application/json` header. Request bodies should be valid JSON.
+
+### Response Format
+
+All responses are returned in JSON format. Successful responses will have a 2xx status code, while errors will have 4xx or 5xx status codes.
+
+### Error Handling
+
+In case of an error, the API will return a JSON object with an `error` key containing a description of the error.
+
+## Getting Started
+
+To get started with this API, clone the repository and install the dependencies:
+
+
+git clone https://github.com/yourusername/your-api-project.git
+cd your-api-project
+composer install
+
+
+Copy the `.env.example` file to `.env` and configure your environment variables, including your database settings.
+
+Then, run the migrations:
+
+
+php artisan migrate
+
+
+You can now start the development server:
+
+
+php artisan serve
+
+
+The API will be available at `http://localhost:8000`.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+<p align="center">
+<a href="https://github.com/yourusername/your-api-project/actions"><img src="https://github.com/yourusername/your-api-project/workflows/tests/badge.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/yourusername/your-api-project"><img src="https://img.shields.io/packagist/dt/yourusername/your-api-project" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/yourusername/your-api-project"><img src="https://img.shields.io/packagist/v/yourusername/your-api-project" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/yourusername/your-api-project"><img src="https://img.shields.io/packagist/l/yourusername/your-api-project" alt="License"></a>
+</p>
+
+## About This API Project
+
+This project is a RESTful API built with Laravel. It provides endpoints for managing various resources.
+
+## API Documentation
+
+### Current Endpoints
+
+#### Users
+
+- `GET /api/users`: Retrieve all users
+- `GET /api/users/{id}`: Retrieve a specific user
+- `POST /api/users`: Create a new user
+- `PUT /api/users/{id}`: Update an existing user
+- `DELETE /api/users/{id}`: Delete a user
+
+#### Posts
+
+- `GET /api/posts`: Retrieve all posts
+- `GET /api/posts/{id}`: Retrieve a specific post
+- `POST /api/posts`: Create a new post
+- `PUT /api/posts/{id}`: Update an existing post
+- `DELETE /api/posts/{id}`: Delete a post
+
+#### Comments
+
+- `GET /api/comments`: Retrieve all comments
+- `GET /api/comments/{id}`: Retrieve a specific comment
+- `POST /api/comments`: Create a new comment
+- `PUT /api/comments/{id}`: Update an existing comment
+- `DELETE /api/comments/{id}`: Delete a comment
+
+### Authentication
+
+This API uses token-based authentication. Include your API token in the Authorization header of your requests:
+
+
+Authorization: Bearer YOUR_API_TOKEN
+
+
+### Request Format
+
+All POST and PUT requests should send data in JSON format with the appropriate `Content-Type` header:
+
+
+Content-Type: application/json
+
+
+### Response Format
+
+All responses are returned in JSON format. Successful responses will have a 2xx status code, while errors will have 4xx or 5xx status codes.
+
+## Installation
+
+1. Clone the repository
+2. Run `composer install`
+3. Copy `.env.example` to `.env` and configure your environment variables
+4. Run `php artisan key:generate`
+5. Run `php artisan migrate`
+6. Run `php artisan serve` to start the development server
+
+## Testing
+
+Run the test suite with:
+
+
+php artisan test
+
+
+## Contributing
+
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
+
+## License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
