@@ -18,7 +18,9 @@ class CardFactory extends Factory
     public function definition(): array
     {
         return [
-            'rank' => $this->faker->numberBetween(1, 13),
+            'rank' => $this->faker->randomElement(
+                ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'Joker']
+            ),
             'suit_id' => Suit::factory(),
         ];
     }
