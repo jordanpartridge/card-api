@@ -12,6 +12,11 @@ class Card extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $fillable = [
+        'rank',
+        'suit_id',
+    ];
+
     public function suit(): BelongsTo
     {
         return $this->belongsTo(Suit::class);
