@@ -8,6 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
+/**
+ * Configures and creates the Illuminate application instance.
+ *
+ * This method sets up the routing, middleware, and exception handling for the
+ * application. It configures the application to use the specified API routes,
+ * console commands, health check endpoint, and API prefix. It also sets up
+ * middleware for ensuring frontend requests are stateful and aliasing the
+ * 'verified' middleware. Finally, it configures the exception handling to
+ * provide custom JSON responses for various exception types.
+ *
+ * @return Application The configured Illuminate application instance.
+ */
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         api: __DIR__ . '/../routes/api.php',
