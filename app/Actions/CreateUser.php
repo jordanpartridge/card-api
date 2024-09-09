@@ -7,22 +7,30 @@ use Illuminate\Support\Facades\Validator;
 
 final class CreateUser
 {
+    private static array $rules = [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+    ];
+
     private User $user;
 
     public function __construct(array $data)
     {
-        $validated = Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        ])->validate();
-
-        $this->user = User::factory()->create(
-            $validated,
-        );
+        $this->user = $this->create($this->validate($data));
     }
 
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    private function create(array $data): User
+    {
+        return User::factory()->create($data);
+    }
+
+    private function validate(array $data): array
+    {
+        return Validator::make($data, CreateUser::$rules)->validate();
     }
 }

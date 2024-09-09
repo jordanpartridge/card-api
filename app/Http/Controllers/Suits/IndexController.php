@@ -7,7 +7,7 @@ use App\Models\Suit;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Cache;
 
-class IndexController
+final class IndexController
 {
     public function __invoke(): AnonymousResourceCollection
     {
