@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Suit;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\Seeder;
 
 class SuitSeeder extends Seeder
@@ -36,7 +37,21 @@ class SuitSeeder extends Seeder
         ];
 
         foreach ($suits as $suit) {
-            Suit::updateOrCreate(['name' => $suit['name']], $suit);
+            try {
+                Suit::factory()->create($suit);
+            } catch (QueryException $e) {
+                $this->command->getOutput()->writeln(
+                    sprintf(
+                        ' Duplicate suit detected:<fg=%s>%s %s %s</> - skipping',
+                        $suit['color'],
+                        $suit['symbol'],
+                        $suit['name'],
+                        $suit['symbol']
+                    )
+                );
+
+                continue;
+            }
         }
     }
 }
