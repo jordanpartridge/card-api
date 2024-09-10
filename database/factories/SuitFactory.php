@@ -19,7 +19,7 @@ class SuitFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'Symbol' => $this->faker->unique()->randomLetter(),
+            'symbol' => $this->faker->unique()->randomLetter(),
             'color' => $this->faker->colorName,
         ];
     }
