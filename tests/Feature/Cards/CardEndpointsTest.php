@@ -2,6 +2,8 @@
 
 use App\Models\Card;
 use App\Models\User;
+use Database\Seeders\CardSeeder;
+use Database\Seeders\SuitSeeder;
 use Laravel\Sanctum\Sanctum;
 
 beforeEach(function () {
@@ -10,6 +12,11 @@ beforeEach(function () {
 
 it('can visit index', function () {
     $response = $this->getJson('/v1/cards');
+    $response->assertJsonStructure([
+        'data' => [
+            '*' => ['id', 'rank', 'suit'],
+        ],
+    ]);
     $response->assertStatus(200);
 });
 
@@ -20,8 +27,8 @@ it('can visit show', function () {
 });
 
 it('paginates results', function () {
-    $this->seed(\Database\Seeders\SuitSeeder::class);
-    $this->seed(\Database\Seeders\CardSeeder::class);
+    $this->seed(SuitSeeder::class);
+    $this->seed(CardSeeder::class);
     $response = $this->getJson('/v1/cards');
     $response->assertStatus(200);
     $response->assertJsonCount(15, 'data');
