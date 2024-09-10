@@ -1,8 +1,8 @@
 <?php
 
+use App\Actions\CreateUser;
 use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Str;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\spin;
@@ -32,12 +32,9 @@ Artisan::command('make:user', function () {
         }
     );
 
-    $user = spin(fn () => User::create([
-        'name' => $name,
-        'email' => $email,
-        'password' => Str::uuid(),
-    ]), 'Creating user...');
+    $userAction = spin(fn () => new CreateUser(['name' => $name, 'email' => $email]), 'Creating user...');
 
+    $user = $userAction->getUser();
     $token = $user->createToken('token-generated-by-make-user')->plainTextToken;
 
     info('✅ User created successfully!');
