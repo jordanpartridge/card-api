@@ -16,7 +16,7 @@ class SuitResource extends JsonResource
     {
         return [
             'name' => $this->resource->name,
-            'Symbol' => $this->resource->symbol,
+            'symbol' => $this->resource->symbol,
             'color' => $this->resource->color,
         ];
     }
