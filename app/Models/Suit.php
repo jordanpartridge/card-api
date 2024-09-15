@@ -16,7 +16,7 @@ class Suit extends Model
      */
     protected $fillable = [
         'name',
-        'Symbol',
+        'symbol',
         'color',
     ];
 

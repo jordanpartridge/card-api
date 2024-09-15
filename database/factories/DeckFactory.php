@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\Suit;
+use App\Models\Deck;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Suit>
+ * @extends Factory<Deck>
  */
-class SuitFactory extends Factory
+class DeckFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,8 +19,7 @@ class SuitFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'symbol' => $this->faker->unique()->randomLetter(),
-            'color' => $this->faker->colorName,
+            'jokers' => $this->faker->numberBetween(0, 2),
         ];
     }
 }
