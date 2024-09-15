@@ -15,6 +15,8 @@ return new class extends Migration
             $table->timestamp('updated_at')->useCurrentOnUpdate();
             $table->timestamp('created_at')->useCurrent();
             $table->softDeletes();
+
+            $table->unique(['name']);
         });
     }
 
