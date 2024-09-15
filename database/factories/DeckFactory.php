@@ -2,10 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\Deck;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Deck>
+ * @extends Factory<Deck>
  */
 class DeckFactory extends Factory
 {
@@ -17,7 +18,8 @@ class DeckFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->unique()->word(),
+            'jokers' => $this->faker->numberBetween(0, 2),
         ];
     }
 }

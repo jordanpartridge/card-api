@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('decks', function (Blueprint $table) {
-            $table->uuid();
+            $table->id();
             $table->string('name');
             $table->tinyInteger('jokers')->comment('The number of jokers in the deck');
             $table->timestamp('updated_at')->useCurrentOnUpdate();
