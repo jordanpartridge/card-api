@@ -19,7 +19,7 @@ class DeckFactory extends Factory
     {
         return [
             'name' => $this->faker->unique()->word(),
-            'jokers' => $this->faker->numberBetween(0, 2),
+            'jokers' => 0,
         ];
     }
 }

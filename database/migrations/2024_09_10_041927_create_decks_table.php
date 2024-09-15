@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::create('decks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->tinyInteger('jokers')->comment('The number of jokers in the deck');
+            $table->tinyInteger('jokers')->comment('The number of jokers in the deck')->default(0);
             $table->timestamp('updated_at')->useCurrentOnUpdate();
             $table->timestamp('created_at')->useCurrent();
             $table->softDeletes();
