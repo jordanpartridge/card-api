@@ -3,17 +3,13 @@
 namespace App\Http\Controllers\Decks;
 
 use App\Http\Requests\StoreDeckRequest;
+use App\Http\Resources\DeckResource;
 use App\Models\Deck;
-use Illuminate\Http\JsonResponse;
 
 class StoreController
 {
-    public function __invoke(StoreDeckRequest $request): JsonResponse
+    public function __invoke(StoreDeckRequest $request): DeckResource
     {
-        $validated = $request->validated();
-
-        $deck = Deck::factory($validated)->create();
-
-        return response()->json($deck);
+        return new DeckResource(Deck::factory($request->validated())->create());
     }
 }

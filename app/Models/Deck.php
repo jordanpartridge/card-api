@@ -4,12 +4,12 @@ namespace App\Models;
 
 use App\Observers\DeckObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 #[ObservedBy([DeckObserver::class])]
-
 class Deck extends Model
 {
     use HasFactory;
@@ -21,7 +21,7 @@ class Deck extends Model
 
     public function cards(): BelongsToMany
     {
-        return $this->belongsToMany(Card::class);
+        return $this->belongsToMany(Card::class)->inRandomOrder();
     }
 
     public function initialize(): void
@@ -38,5 +38,13 @@ class Deck extends Model
                 $this->cards()->attach($jokerAttachments);
             }
         }
+    }
+
+    public function draw(int $count = 1): Collection
+    {
+        $cards = $this->cards()->take($count)->get();
+        $this->cards()->detach($cards);
+
+        return $cards;
     }
 }
