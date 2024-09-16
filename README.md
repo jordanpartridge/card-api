@@ -1,81 +1,141 @@
 # Card API Project
 
-## [![Tests](https://github.com/jordanpartridge/card-api/actions/workflows/laravel.yml/badge.svg)](https://github.com/jordanpartridge/card-api/actions/workflows/laravel.yml) [![Duster Fix](https://github.com/jordanpartridge/card-api/actions/workflows/duster-fix-blame.yml/badge.svg)](https://github.com/jordanpartridge/card-api/actions/workflows/duster-fix-blame.yml)
+[![Tests](https://github.com/jordanpartridge/card-api/actions/workflows/laravel.yml/badge.svg)](https://github.com/jordanpartridge/card-api/actions/workflows/laravel.yml) [![Duster Fix](https://github.com/jordanpartridge/card-api/actions/workflows/duster-fix-blame.yml/badge.svg)](https://github.com/jordanpartridge/card-api/actions/workflows/duster-fix-blame.yml)
 
 ## About Card API
 
-The Card API is built with
+The Card API is a Laravel 11 project that provides endpoints for managing suits, cards, and decks. It's a headless API authenticated using Laravel Sanctum.
 
-- Laravel 11
-- Sanctum
+## Features
 
-<p>
-It provides endpoints for managing suits, cards, and decks. At the time of writing this README, this is a completely headless API. A make:user command is provided to create a user with a token.
-</p>
+- Manage suits, cards, and decks
+- Draw cards from decks
+- User authentication with API tokens
 
-## Make User
+## Installation
 
-Since there is no user interface, a make:user command is provided to create a user with a token:
+1. Clone the repository
+2. Install dependencies: `composer install`
+3. Set up your `.env` file
+4. Run migrations: `php artisan migrate`
+5. Generate application key: `php artisan key:generate`
+
+## Create a User
+
+Since there is no user interface, use the provided Artisan command to create a user with an API token:
 
 ```bash
-~/Sites/card-api git:[feature/we-need-badges]
-./artisan make:user
-
- 🚀 Welcome to the User Creation Wizard! 🚀
-
- ┌ 👤 What is the name of the user? ────────────────────────────┐
- │ Jordan Partridge                                             │
- └──────────────────────────────────────────────────────────────┘
-
- ┌ 📧 What is the email of the user? ───────────────────────────┐
- │ jordan@partridge.rocks                                       │
- └──────────────────────────────────────────────────────────────┘
-
-
- ✅ User created successfully!
-
- ┌──────────────────┬────────────────────────┬────────────────────────────────────────────────────┐
- │ Name             │ Email                  │ API Token                                          │
- ├──────────────────┼────────────────────────┼────────────────────────────────────────────────────┤
- │ Jordan Partridge │ jordan@partridge.rocks │ 1|hofwGeTsZ9tDLDEE9yquhDwwCKS0B0ktqUxrby1I48332aaa │
- └──────────────────┴────────────────────────┴────────────────────────────────────────────────────┘
-
- 🔐 Make sure to save the API token, as it won't be shown again!
-
-
-
+php artisan make:user
 ```
+
+Follow the prompts to create a user and receive an API token.
 
 ## API Documentation
 
-### Current Endpoints
+Base URL: `http://card-api.test/v1`
+
+### Authentication
+
+All API endpoints require authentication using a bearer token. Include the following header in your HTTP requests:
+
+```
+Authorization: Bearer YOUR_API_TOKEN
+```
+
+### Endpoints
 
 #### Suits
 
-- GET /api/suits: Retrieve all suits
-- GET /api/suits/{id}: Retrieve a specific suit
-- POST /api/suits: Create a new suit
-- PUT /api/suits/{id}: Update an existing suit
-- DELETE /api/suits/{id}: Delete a suit
+- `GET /suits`: Retrieve all suits
+- `GET /suits/{suit}`: Retrieve a specific suit by name
 
 #### Cards
 
-- GET /api/cards: Retrieve all cards
-- GET /api/cards/{id}: Retrieve a specific card
-- POST /api/cards: Create a new card
-- PUT /api/cards/{id}: Update an existing card
-- DELETE /api/cards/{id}: Delete a card
+- `GET /cards`: Retrieve all cards (paginated)
+- `GET /cards/{card}`: Retrieve a specific card by ID
 
 #### Decks
 
-- GET `/api/decks`: Retrieve all decks
-- GET `/api/decks/{id}`: Retrieve a specific deck
-- POST `/api/decks`: Create a new deck
-- PUT `/api/decks/{id}`: Update an existing deck
-- DELETE `/api/decks/{id}`: Delete a deck
+- `GET /decks/{deck}`: Retrieve a specific deck by ID
+- `POST /decks`: Create a new deck
+- `GET /decks/{deck}/cards`: Retrieve all cards in a deck
+- `PUT /decks/{deck}/draw`: Draw cards from a deck
 
-# Authentication
+### Request and Response Examples
 
-All API endpoints require authentication using a bearer token. To authenticate, include the following header in your HTTP requests:
+#### Create a Deck
 
-`Authorization: Bearer YOUR_API_TOKEN`
+Request:
+```http
+POST /decks
+Content-Type: application/json
+
+{
+  "name": "My New Deck",
+  "jokers": 2
+}
+```
+
+Response:
+```json
+{
+  "name": "My New Deck",
+  "card_count": "54",
+  "joker_count": 2
+}
+```
+
+#### Draw Cards
+
+Request:
+```http
+PUT /decks/{deck_id}/draw?count=5
+```
+
+Response:
+```json
+[
+  {
+    "rank": "Ace",
+    "suit": "Hearts"
+  },
+  {
+    "rank": "King",
+    "suit": "Spades"
+  },
+  // ... (3 more cards)
+]
+```
+
+### Error Handling
+
+The API uses standard HTTP status codes and returns error messages in JSON format. Common error responses include:
+
+- 401 Unauthorized: Authentication failed
+- 403 Forbidden: The authenticated user doesn't have permission for the requested action
+- 404 Not Found: The requested resource doesn't exist
+- 422 Unprocessable Entity: Validation errors in the request data
+
+## Development
+
+### Running Tests
+
+```bash
+php artisan test
+```
+
+### Code Style
+
+This project uses Laravel Pint for code styling. To check and fix code style issues:
+
+```bash
+./vendor/bin/pint
+```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
