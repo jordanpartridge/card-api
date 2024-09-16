@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('card_id')->constrained()->cascadeOnDelete();
             $table->foreignId('deck_id')->constrained()->cascadeOnDelete();
+            $table->integer('sequence')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrentOnUpdate()->nullable();
         });
