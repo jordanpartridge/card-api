@@ -21,9 +21,9 @@ class Deck extends Model
 
     public function cards(): BelongsToMany
     {
-        return $this->belongsToMany(Card::class)->withPivot('order')
+        return $this->belongsToMany(Card::class)->withPivot('sequence')
             ->withTimestamps()
-            ->orderBy('order');
+            ->orderBy('sequence');
     }
 
     public function initialize(): void
@@ -31,7 +31,7 @@ class Deck extends Model
         // Attach all non-joker cards
         $standardCards = Card::standardCards()->get();
         $cardData = $standardCards->mapWithKeys(function ($card, $index) {
-            return [$card->id => ['order' => $index + 1]];
+            return [$card->id => ['sequence' => $index + 1]];
         })->all();
         $this->cards()->attach($cardData);
 
@@ -41,7 +41,7 @@ class Deck extends Model
             if ($jokerCard) {
                 $lastOrder = $standardCards->count();
                 $jokerAttachments = collect(range(1, $this->jokers))->mapWithKeys(function ($i) use ($jokerCard, $lastOrder) {
-                    return [$jokerCard->id => ['order' => $lastOrder + $i]];
+                    return [$jokerCard->id => ['sequence' => $lastOrder + $i]];
                 })->all();
                 $this->cards()->attach($jokerAttachments);
             }
@@ -66,7 +66,7 @@ class Deck extends Model
 
             $this->cards()->sync(
                 $cards->mapWithKeys(function ($card, $index) use ($shuffledOrder) {
-                    return [$shuffledOrder[$index]->id => ['order' => $index + 1]];
+                    return [$shuffledOrder[$index]->id => ['sequence' => $index + 1]];
                 })
             );
         }
