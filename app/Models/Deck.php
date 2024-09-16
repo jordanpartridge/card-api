@@ -21,23 +21,32 @@ class Deck extends Model
 
     public function cards(): BelongsToMany
     {
-        return $this->belongsToMany(Card::class)->inRandomOrder();
+        return $this->belongsToMany(Card::class)->withPivot('order')
+            ->withTimestamps()
+            ->orderBy('order');
     }
 
     public function initialize(): void
     {
         // Attach all non-joker cards
         $standardCards = Card::standardCards()->get();
-        $this->cards()->attach($standardCards);
+        $cardData = $standardCards->mapWithKeys(function ($card, $index) {
+            return [$card->id => ['order' => $index + 1]];
+        })->all();
+        $this->cards()->attach($cardData);
 
         // Attach jokers if needed
         if ($this->jokers > 0) {
             $jokerCard = Card::where('rank', 'joker')->first();
             if ($jokerCard) {
-                $jokerAttachments = array_fill(0, $this->jokers, ['card_id' => $jokerCard->id]);
+                $lastOrder = $standardCards->count();
+                $jokerAttachments = collect(range(1, $this->jokers))->mapWithKeys(function ($i) use ($jokerCard, $lastOrder) {
+                    return [$jokerCard->id => ['order' => $lastOrder + $i]];
+                })->all();
                 $this->cards()->attach($jokerAttachments);
             }
         }
+        $this->shuffle(5);
     }
 
     public function draw(int $count = 1): Collection
@@ -46,5 +55,20 @@ class Deck extends Model
         $this->cards()->detach($cards);
 
         return $cards;
+    }
+
+    public function shuffle(int $times = 1): void
+    {
+        for ($i = 0; $i < $times; $i++) {
+
+            $cards = $this->cards()->get();
+            $shuffledOrder = $cards->shuffle()->values()->all();
+
+            $this->cards()->sync(
+                $cards->mapWithKeys(function ($card, $index) use ($shuffledOrder) {
+                    return [$shuffledOrder[$index]->id => ['order' => $index + 1]];
+                })
+            );
+        }
     }
 }
