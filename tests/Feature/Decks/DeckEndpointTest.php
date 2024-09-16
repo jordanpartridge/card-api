@@ -20,4 +20,7 @@ it('can be created over api', function () {
         'name' => 'My Deck',
     ]);
     $response->assertStatus(201);
+    $this->assertDatabaseHas('decks', [
+        'name' => 'My Deck',
+    ]);
 });
