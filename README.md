@@ -10,6 +10,7 @@ The Card API is a Laravel 11 project that provides endpoints for managing suits,
 
 - Manage suits, cards, and decks
 - Draw cards from decks
+- Shuffle decks
 - User authentication with API tokens
 
 ## Installation
@@ -60,6 +61,11 @@ Authorization: Bearer YOUR_API_TOKEN
 - `POST /decks`: Create a new deck
 - `GET /decks/{deck}/cards`: Retrieve all cards in a deck
 - `PUT /decks/{deck}/draw`: Draw cards from a deck
+- `PUT /decks/{deck}/shuffle`: Shuffle a deck
+
+#### Users
+
+- `GET /users`: Retrieve all users
 
 ### Request and Response Examples
 
@@ -105,6 +111,36 @@ Response:
   },
   // ... (3 more cards)
 ]
+```
+
+#### Shuffle Deck
+
+Request:
+```http
+PUT /decks/{deck_id}/shuffle
+```
+
+Response:
+```json
+[
+  {
+    "rank": "7",
+    "suit": "Diamonds"
+  },
+  {
+    "rank": "Queen",
+    "suit": "Clubs"
+  },
+  // ... (rest of the shuffled cards)
+]
+```
+
+### Pagination
+
+The `/cards` endpoint supports pagination. You can specify the number of items per page using the `paginate` query parameter:
+
+```
+GET /cards?paginate=15
 ```
 
 ### Error Handling
