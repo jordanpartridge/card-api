@@ -6,4 +6,5 @@ Route::middleware(['auth:sanctum'])->prefix('v1')->as('v1:')->group(static funct
     Route::prefix('users')->as('users:')->group(base_path('routes/api/v1/users.php'));
     Route::prefix('suits')->as('suits:')->group(base_path('routes/api/v1/suits.php'));
     Route::prefix('cards')->as('cards:')->group(base_path('routes/api/v1/cards.php'));
+    Route::prefix('decks')->as('decks:')->group(base_path('routes/api/v1/decks.php'));
 });

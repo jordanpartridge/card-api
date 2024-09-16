@@ -59,7 +59,7 @@ return Application::configure(basePath: dirname(__DIR__))
             }
 
             // Catch-all for any other exceptions
-            // return response()->json(['message' => 'An error occurred.'], 500);
+            return response()->json(['message' => 'Internal Server Error'], 500);
         });
     })
     ->create();
