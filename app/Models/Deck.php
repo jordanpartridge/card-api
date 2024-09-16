@@ -30,6 +30,7 @@ class Deck extends Model
     {
         // Attach all non-joker cards
         $standardCards = Card::standardCards()->get();
+
         $cardData = $standardCards->mapWithKeys(function ($card, $index) {
             return [$card->id => ['sequence' => $index + 1]];
         })->all();
