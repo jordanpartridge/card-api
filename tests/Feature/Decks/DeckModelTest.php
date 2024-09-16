@@ -43,3 +43,15 @@ it('has 52 cards by default', function () {
     $deck = Deck::factory()->create();
     expect($deck->cards->count())->toBe(52);
 });
+
+it('can be shuffled', function () {
+    $this->seed(SuitSeeder::class);
+    $this->seed(CardSeeder::class);
+    $deck = Deck::factory()->create();
+    $firstCard = $deck->cards->first();
+    $rank = $deck->cards->first()->rank;
+
+    $deck->shuffle();
+    $deck->refresh();
+    expect($deck->cards->first()->rank)->not->toBe($rank);
+});
