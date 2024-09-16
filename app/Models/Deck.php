@@ -38,7 +38,7 @@ class Deck extends Model
 
         // Attach jokers if needed
         if ($this->jokers > 0) {
-            $jokerCard = Card::where('rank', 'joker')->first();
+            $jokerCard = Card::where('rank', 'Joker')->first();
             if ($jokerCard) {
                 $lastOrder = $standardCards->count();
                 $jokerAttachments = collect(range(1, $this->jokers))->mapWithKeys(function ($i) use ($jokerCard, $lastOrder) {
