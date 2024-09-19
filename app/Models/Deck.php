@@ -19,6 +19,16 @@ class Deck extends Model
         'jokers',
     ];
 
+    /**
+     * route identifier is no slug
+     * example: /v1/decks/my-deck
+     * instead of /v1/decks/1
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
     public function cards(): BelongsToMany
     {
         return $this->belongsToMany(Card::class)->withPivot('sequence')
