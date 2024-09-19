@@ -14,6 +14,11 @@ class DeckObserver
         $deck->initialize();
     }
 
+    public function creating(Deck $deck): void
+    {
+        $deck->slug = str($deck->name)->slug();
+    }
+
     /**
      * Handle the Deck "updated" event.
      */

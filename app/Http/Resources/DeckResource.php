@@ -15,7 +15,7 @@ class DeckResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => $this->resource->name,
+            'slug' => $this->resource->slug,
             'card_count' => $this->resource->cards()->count(),
             'joker_count' => $this->resource->jokers,
         ];
