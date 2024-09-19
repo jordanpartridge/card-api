@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\spin;
-use function Laravel\Prompts\table;
 use function Laravel\Prompts\text;
 
 Artisan::command('make:user', function () {
@@ -37,12 +36,8 @@ Artisan::command('make:user', function () {
     $user = $userAction->getUser();
     $token = $user->createToken('token-generated-by-make-user')->plainTextToken;
 
-    info('✅ User created successfully!');
-
-    table(
-        ['Name', 'Email', 'API Token'],
-        [[$user->name, $user->email, $token]]
-    );
+    info('✅ User created successfully! Guess what? You get a free API token!');
+    info($token);
 
     info('🔐 Make sure to save the API token, as it won\'t be shown again!');
 });

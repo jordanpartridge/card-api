@@ -16,6 +16,7 @@ class DeckResource extends JsonResource
     {
         return [
             'name' => $this->resource->name,
+            'slug' => $this->resource->slug,
             'card_count' => $this->resource->cards()->count(),
             'joker_count' => $this->resource->jokers,
         ];
