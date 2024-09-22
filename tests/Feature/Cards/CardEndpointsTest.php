@@ -23,6 +23,7 @@ it('can visit index', function () {
 it('can visit show', function () {
     $card = Card::factory()->create();
     $response = $this->getJson('/v1/cards/' . $card->id);
+    $response->assertJson(['rank' => $card->rank, 'suit' => ['name' => $card->suit->name, 'symbol' => $card->suit->symbol, 'color' => $card->suit->color]]);
     $response->assertStatus(200);
 });
 
