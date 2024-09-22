@@ -13,7 +13,7 @@ class CardResource extends JsonResource
     {
         return [
             'rank' => $this->resource->rank,
-            'suit' => $this->resource->suit?->name,
+            'suit' => SuitResource::make($this->resource->suit),
         ];
     }
 }
