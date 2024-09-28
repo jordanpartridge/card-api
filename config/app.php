@@ -16,6 +16,20 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
+     |--------------------------------------------------------------------------
+     | Unused Deck Deletion Threshold
+     |--------------------------------------------------------------------------
+     |
+     | Deck slugs are unique, so often while testing a number of decks are created
+     | and not utilized. Also, decks might be used but no longer needed. This
+     | value defines the number of hours of inactivity after which an
+     | unused deck will be automatically deleted from the system.
+     |
+     */
+
+    'unused_deck_deletion_threshold' => 24,
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------
