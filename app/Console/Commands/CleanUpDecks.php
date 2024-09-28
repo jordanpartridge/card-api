@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Deck;
 use Illuminate\Console\Command;
 
 class CleanUpDecks extends Command
@@ -11,20 +12,23 @@ class CleanUpDecks extends Command
      *
      * @var string
      */
-    protected $signature = 'app:clean-up-decks';
+    protected $signature = 'decks:clean';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'remove decks at the defined stale threshold';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        //
+        Deck::query()
+            ->where('updated_at', '<', now()
+                ->subHours(config('app.unused_deck_deletion_threshold')))
+            ->delete();
     }
 }
