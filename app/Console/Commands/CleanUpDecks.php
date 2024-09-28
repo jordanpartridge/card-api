@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Deck;
+use Exception;
 use Illuminate\Console\Command;
 
 class CleanUpDecks extends Command
@@ -23,12 +24,23 @@ class CleanUpDecks extends Command
 
     /**
      * Execute the console command.
+     *
+     * @throws Exception
      */
-    public function handle()
+    public function handle(): void
     {
-        Deck::query()
-            ->where('updated_at', '<', now()
-                ->subHours(config('app.unused_deck_deletion_threshold')))
-            ->delete();
+        $threshold = config('app.unused_deck_deletion_threshold');
+        if (! $threshold) {
+            throw new Exception('Failed to execute: ' . $this->signature . ' Threshold not set');
+        }
+        try {
+            $deleteCount = Deck::query()
+                ->where('updated_at', '<', now()
+                    ->subHours($threshold))
+                ->delete();
+            $this->info('Deleted ' . $deleteCount . ' decks');
+        } catch (Exception $exception) {
+            throw new Exception('Failed to execute: ' . $this->signature . ' ' . $exception->getMessage());
+        }
     }
 }
