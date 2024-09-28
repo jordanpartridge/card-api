@@ -8,6 +8,7 @@ use function Laravel\Prompts\info;
 use function Laravel\Prompts\spin;
 use function Laravel\Prompts\text;
 
+Schedule::command('decks:clean')->daily();
 Artisan::command('make:user', function () {
     info('🚀 Welcome to the User Creation Wizard! 🚀');
 
