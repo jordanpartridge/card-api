@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Enum\Rank;
+use App\Enum\Suit as SuitEnum;
 use App\Models\Card;
 use App\Models\Suit;
 use App\States\CardState;
@@ -16,7 +17,7 @@ class CardCreated extends Event
 
     public Rank $rank;
 
-    public string $suit;
+    public ?SuitEnum $suit = null;
 
     public function applyToCard(CardState $card): void
     {
