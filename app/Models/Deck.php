@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Observers\DeckObserver;
+use Glhd\Bits\Database\HasSnowflakes;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Deck extends Model
 {
     use HasFactory;
+    use HasSnowflakes;
     use SoftDeletes;
 
     protected $fillable = [

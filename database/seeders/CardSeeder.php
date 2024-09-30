@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Enum\Rank;
+use App\Events\CardCreated;
 use App\Models\Card;
 use App\Models\Suit;
 use Illuminate\Database\Seeder;
@@ -20,24 +22,23 @@ class CardSeeder extends Seeder
             return;
         }
 
-        $suits = Suit::pluck('id');
-        $ranks = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        $suits = Suit::pluck('name');
+        $ranks = Rank::cases();
+
         foreach ($ranks as $rank) {
+            if ($rank === Rank::JOKER) {
+                continue; // We'll handle the Joker separately
+            }
             foreach ($suits as $suit) {
-                Card::factory()->create([
-                    'rank' => $rank,
-                    'suit_id' => $suit,
-                ]);
+                CardCreated::fire(rank: $rank, suit: $suit);
             }
         }
 
         /**
          * Create joker card this will only create one, as the decks table
-         *  will represent unique cards; however decks can have multiple jokers
+         * will represent unique cards; however decks can have multiple jokers
          */
-        Card::factory()->create([
-            'rank' => 'Joker',
-            'suit_id' => null,
-        ]);
+        CardCreated::fire(rank: Rank::JOKER);
+
     }
 }

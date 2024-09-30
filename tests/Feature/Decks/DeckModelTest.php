@@ -4,6 +4,7 @@ use App\Models\Deck;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\SuitSeeder;
 use Illuminate\Database\QueryException;
+use Thunk\Verbs\Facades\Verbs;
 
 it('can be created with factory', function () {
     $deck = Deck::factory()->create();
@@ -40,6 +41,7 @@ it('can have up to 2 jokers', function () {
 it('has 52 cards by default', function () {
     $this->seed(SuitSeeder::class);
     $this->seed(CardSeeder::class);
+    Verbs::commit();
     $deck = Deck::factory()->create();
     expect($deck->cards->count())->toBe(52);
 });
@@ -47,6 +49,7 @@ it('has 52 cards by default', function () {
 it('can be shuffled', function () {
     $this->seed(SuitSeeder::class);
     $this->seed(CardSeeder::class);
+    Verbs::commit();
     $deck = Deck::factory()->create();
     $firstCard = $deck->cards->first();
     $rank = $deck->cards->first()->rank;
