@@ -6,8 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "fakerphp/faker": "^1.23",
         "dedoc/scramble": "^0.11.13",
+        "fakerphp/faker": "^1.23",
+        "glhd/bits": "^0.5.0",
+        "hirethunk/verbs": "^0.6.2",
         "laravel/framework": "^11.9",
         "laravel/prompts": "^0.1.25",
         "laravel/sanctum": "^4.0",

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Glhd\Bits\Database\HasSnowflakes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Card extends Model
 {
     use HasFactory;
+    use HasSnowflakes;
     use SoftDeletes;
 
     protected $fillable = [
