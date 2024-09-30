@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Suit;
+use App\Events\SuitCreated;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Seeder;
+use Thunk\Verbs\Facades\Verbs;
 
 class SuitSeeder extends Seeder
 {
@@ -38,7 +39,7 @@ class SuitSeeder extends Seeder
 
         foreach ($suits as $suit) {
             try {
-                Suit::factory()->create($suit);
+                SuitCreated::fire(name: $suit['name'], symbol: $suit['symbol'], color: $suit['color']);
             } catch (QueryException $e) {
                 $this->command->getOutput()->writeln(
                     sprintf(
@@ -53,5 +54,6 @@ class SuitSeeder extends Seeder
                 continue;
             }
         }
+        Verbs::commit();
     }
 }
