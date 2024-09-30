@@ -24,8 +24,11 @@ class CardCreated extends Event
         $card->rank = $this->rank;
         $card->suit = $this->suit;
 
-        $suit = Suit::where(['name' => $this->suit])->first();
+    }
 
+    public function handle(): void
+    {
+        $suit = Suit::where(['name' => $this->suit])->first();
         Card::create([
             'rank' => $this->rank,
             'suit_id' => $suit->id ?? null,
