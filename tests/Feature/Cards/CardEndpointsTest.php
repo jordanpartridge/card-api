@@ -5,6 +5,7 @@ use App\Models\User;
 use Database\Seeders\CardSeeder;
 use Database\Seeders\SuitSeeder;
 use Laravel\Sanctum\Sanctum;
+use Thunk\Verbs\Facades\Verbs;
 
 beforeEach(function () {
     Sanctum::actingAs(User::factory()->create());
@@ -30,6 +31,7 @@ it('can visit show', function () {
 it('paginates results', function () {
     $this->seed(SuitSeeder::class);
     $this->seed(CardSeeder::class);
+    Verbs::commit();
     $response = $this->getJson('/v1/cards');
     $response->assertStatus(200);
     $response->assertJsonCount(15, 'data');
