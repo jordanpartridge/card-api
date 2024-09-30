@@ -38,7 +38,7 @@ class CardSeeder extends Seeder
          * Create joker card this will only create one, as the decks table
          * will represent unique cards; however decks can have multiple jokers
          */
-        CardCreated::fire(rank: Rank::JOKER, suit: 'Joker');
+        CardCreated::fire(rank: Rank::JOKER);
 
     }
 }

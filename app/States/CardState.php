@@ -3,11 +3,12 @@
 namespace App\States;
 
 use App\Enum\Rank;
+use App\Enum\Suit;
 use Thunk\Verbs\State;
 
 class CardState extends State
 {
     public Rank $rank;
 
-    public string $suit;
+    public ?Suit $suit = null;
 }
