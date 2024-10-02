@@ -19,7 +19,7 @@ class CardFactory extends Factory
     {
         return [
             'rank' => $this->faker->randomElement(
-                ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'Joker']
+                ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
             ),
             'suit_id' => Suit::factory(),
         ];

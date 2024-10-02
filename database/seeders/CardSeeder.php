@@ -26,19 +26,9 @@ class CardSeeder extends Seeder
         $ranks = Rank::cases();
 
         foreach ($ranks as $rank) {
-            if ($rank === Rank::JOKER) {
-                continue; // We'll handle the Joker separately
-            }
             foreach ($suits as $suit) {
                 CardCreated::fire(rank: $rank, suit: $suit);
             }
         }
-
-        /**
-         * Create joker card this will only create one, as the decks table
-         * will represent unique cards; however decks can have multiple jokers
-         */
-        CardCreated::fire(rank: Rank::JOKER);
-
     }
 }

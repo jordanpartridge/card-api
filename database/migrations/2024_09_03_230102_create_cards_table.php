@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('cards', function (Blueprint $table) {
             $table->snowflakeId();
-            $table->enum('rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'Joker']);
+            $table->enum('rank', ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']);
             $table->foreignId('suit_id')->nullable()->index()->constrained('suits');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

@@ -17,5 +17,4 @@ enum Rank: string
     case JACK = 'J';
     case QUEEN = 'Q';
     case KING = 'K';
-    case JOKER = 'Joker';
 }
