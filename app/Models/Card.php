@@ -27,6 +27,6 @@ class Card extends Model
 
     public function scopeStandardCards(Builder $builder): Builder
     {
-        return $builder->where('rank', '!=', 'Joker');
+        return $builder->whereNotNull('rank');
     }
 }

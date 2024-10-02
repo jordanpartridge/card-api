@@ -27,13 +27,6 @@ it('has a valid suit relationship', function () {
     expect($card->suit->id)->toBe($suit->id);
 });
 
-it('can create a Joker card with null suit', function () {
-    $card = Card::factory()->create(['rank' => 'Joker', 'suit_id' => null]);
-
-    expect($card->rank)->toBe('Joker')
-        ->and($card->suit_id)->toBeNull();
-});
-
 it('throws an error for invalid rank or suit_id', function () {
     $this->expectException(\Illuminate\Database\QueryException::class);
     Card::factory()->create(['rank' => 'InvalidRank', 'suit_id' => 999]);
